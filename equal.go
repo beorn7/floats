@@ -16,11 +16,13 @@ func AlmostEqual(a, b, ε float64) bool {
 	if a == b {
 		return true
 	}
+	absA := math.Abs(a)
+	absB := math.Abs(b)
 	diff := math.Abs(a - b)
-	if a == 0 || b == 0 || diff < MinNormal {
+	if a == 0 || b == 0 || absA+absB < MinNormal {
 		return diff < ε*MinNormal
 	}
-	return diff/(math.Abs(a)+math.Abs(b)) < ε
+	return diff/math.Min(absA+absB, math.MaxFloat64) < ε
 }
 
 // AlmostEqual32 returns true if a and b are equal within a relative error of
@@ -30,11 +32,13 @@ func AlmostEqual32(a, b, ε float32) bool {
 	if a == b {
 		return true
 	}
+	absA := Abs32(a)
+	absB := Abs32(b)
 	diff := Abs32(a - b)
-	if a == 0 || b == 0 || diff < MinNormal32 {
+	if a == 0 || b == 0 || absA+absB < MinNormal32 {
 		return diff < ε*MinNormal32
 	}
-	return diff/(Abs32(a)+Abs32(b)) < ε
+	return diff/Min32(absA+absB, math.MaxFloat32) < ε
 }
 
 // Abs32 works like math.Abs, but for float32.
@@ -46,4 +50,12 @@ func Abs32(x float32) float32 {
 		return 0 // return correctly abs(-0)
 	}
 	return x
+}
+
+// Min32 works like math.Min, but for float32.
+func Min32(x, y float32) float32 {
+	if x < y {
+		return x
+	}
+	return y
 }
