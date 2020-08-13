@@ -8,6 +8,8 @@ import (
 // These tests have been copied from the reference implementation at:
 // https://floating-point-gui.de/errors/NearlyEqualsTest.java
 
+// TODO: Create the same tests for float64.
+
 func TestAlmostEqual_big(t *testing.T) {
 	// Regular large numbers - generally not problematic.
 	testAlmostEqual(t, true, 1000000, 1000001, 0.00001)
@@ -85,42 +87,42 @@ func TestAlmostEqual_zero(t *testing.T) {
 
 func TestAlmostEqual_extremeMax(t *testing.T) {
 	// Comparisons involving extreme values (overflow potential).
-	testAlmostEqual(t, true, math.MaxFloat64, math.MaxFloat64, 0.00001)
-	testAlmostEqual(t, false, math.MaxFloat64, -math.MaxFloat64, 0.00001)
-	testAlmostEqual(t, false, -math.MaxFloat64, math.MaxFloat64, 0.00001)
-	testAlmostEqual(t, false, math.MaxFloat64, math.MaxFloat64/2, 0.00001)
-	testAlmostEqual(t, false, math.MaxFloat64, -math.MaxFloat64/2, 0.00001)
-	testAlmostEqual(t, false, -math.MaxFloat64, math.MaxFloat64/2, 0.00001)
+	testAlmostEqual(t, true, math.MaxFloat32, math.MaxFloat32, 0.00001)
+	testAlmostEqual(t, false, math.MaxFloat32, -math.MaxFloat32, 0.00001)
+	testAlmostEqual(t, false, -math.MaxFloat32, math.MaxFloat32, 0.00001)
+	testAlmostEqual(t, false, math.MaxFloat32, math.MaxFloat32/2, 0.00001)
+	testAlmostEqual(t, false, math.MaxFloat32, -math.MaxFloat32/2, 0.00001)
+	testAlmostEqual(t, false, -math.MaxFloat32, math.MaxFloat32/2, 0.00001)
 }
 
 func TestAlmostEqual_infinities(t *testing.T) {
 	// Comparisons involving infinities.
-	testAlmostEqual(t, true, math.Inf(1), math.Inf(1), 0.00001)
-	testAlmostEqual(t, true, math.Inf(-1), math.Inf(-1), 0.00001)
-	testAlmostEqual(t, false, math.Inf(-1), math.Inf(1), 0.00001)
-	testAlmostEqual(t, false, math.Inf(1), math.MaxFloat64, 0.00001)
-	testAlmostEqual(t, false, math.Inf(-1), -math.MaxFloat64, 0.00001)
+	testAlmostEqual(t, true, float32(math.Inf(1)), float32(math.Inf(1)), 0.00001)
+	testAlmostEqual(t, true, float32(math.Inf(-1)), float32(math.Inf(-1)), 0.00001)
+	testAlmostEqual(t, false, float32(math.Inf(-1)), float32(math.Inf(1)), 0.00001)
+	testAlmostEqual(t, false, float32(math.Inf(1)), math.MaxFloat32, 0.00001)
+	testAlmostEqual(t, false, float32(math.Inf(-1)), -math.MaxFloat32, 0.00001)
 }
 
 func TestAlmostEqual_nan(t *testing.T) {
 	// Comparisons involving NaN values.
-	testAlmostEqual(t, false, math.NaN(), math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), 0.0, 0.00001)
-	testAlmostEqual(t, false, -0.0, math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), -0.0, 0.00001)
-	testAlmostEqual(t, false, 0.0, math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), math.Inf(1), 0.00001)
-	testAlmostEqual(t, false, math.Inf(1), math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), math.Inf(-1), 0.00001)
-	testAlmostEqual(t, false, math.Inf(-1), math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), math.MaxFloat64, 0.00001)
-	testAlmostEqual(t, false, math.MaxFloat64, math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), -math.MaxFloat64, 0.00001)
-	testAlmostEqual(t, false, -math.MaxFloat64, math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, false, math.SmallestNonzeroFloat64, math.NaN(), 0.00001)
-	testAlmostEqual(t, false, math.NaN(), -math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, false, -math.SmallestNonzeroFloat64, math.NaN(), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), 0.0, 0.00001)
+	testAlmostEqual(t, false, -0.0, float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), -0.0, 0.00001)
+	testAlmostEqual(t, false, 0.0, float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), float32(math.Inf(1)), 0.00001)
+	testAlmostEqual(t, false, float32(math.Inf(1)), float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), float32(math.Inf(-1)), 0.00001)
+	testAlmostEqual(t, false, float32(math.Inf(-1)), float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), math.MaxFloat32, 0.00001)
+	testAlmostEqual(t, false, math.MaxFloat32, float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), -math.MaxFloat32, 0.00001)
+	testAlmostEqual(t, false, -math.MaxFloat32, float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, false, math.SmallestNonzeroFloat32, float32(math.NaN()), 0.00001)
+	testAlmostEqual(t, false, float32(math.NaN()), -math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, false, -math.SmallestNonzeroFloat32, float32(math.NaN()), 0.00001)
 }
 
 func TestAlmostEqual_opposite(t *testing.T) {
@@ -129,28 +131,28 @@ func TestAlmostEqual_opposite(t *testing.T) {
 	testAlmostEqual(t, false, -1.0, 1.000000001, 0.00001)
 	testAlmostEqual(t, false, -1.000000001, 1.0, 0.00001)
 	testAlmostEqual(t, false, 1.0, -1.000000001, 0.00001)
-	testAlmostEqual(t, true, 10*math.SmallestNonzeroFloat64, 10*-math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, false, 10000*math.SmallestNonzeroFloat64, 10000*-math.SmallestNonzeroFloat64, 0.00001)
+	testAlmostEqual(t, true, 10*math.SmallestNonzeroFloat32, 10*-math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, false, 10000*math.SmallestNonzeroFloat32, 10000*-math.SmallestNonzeroFloat32, 0.00001)
 }
 
 func TestAlmostEqual_ulp(t *testing.T) {
 	// The really tricky part - comparisons of numbers very close to zero.
-	testAlmostEqual(t, true, math.SmallestNonzeroFloat64, math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, true, math.SmallestNonzeroFloat64, -math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, true, -math.SmallestNonzeroFloat64, math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, true, math.SmallestNonzeroFloat64, 0, 0.00001)
-	testAlmostEqual(t, true, 0, math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, true, -math.SmallestNonzeroFloat64, 0, 0.00001)
-	testAlmostEqual(t, true, 0, -math.SmallestNonzeroFloat64, 0.00001)
+	testAlmostEqual(t, true, math.SmallestNonzeroFloat32, math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, true, math.SmallestNonzeroFloat32, -math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, true, -math.SmallestNonzeroFloat32, math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, true, math.SmallestNonzeroFloat32, 0, 0.00001)
+	testAlmostEqual(t, true, 0, math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, true, -math.SmallestNonzeroFloat32, 0, 0.00001)
+	testAlmostEqual(t, true, 0, -math.SmallestNonzeroFloat32, 0.00001)
 
-	testAlmostEqual(t, false, 0.000000001, -math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, false, 0.000000001, math.SmallestNonzeroFloat64, 0.00001)
-	testAlmostEqual(t, false, math.SmallestNonzeroFloat64, 0.000000001, 0.00001)
-	testAlmostEqual(t, false, -math.SmallestNonzeroFloat64, 0.000000001, 0.00001)
+	testAlmostEqual(t, false, 0.000000001, -math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, false, 0.000000001, math.SmallestNonzeroFloat32, 0.00001)
+	testAlmostEqual(t, false, math.SmallestNonzeroFloat32, 0.000000001, 0.00001)
+	testAlmostEqual(t, false, -math.SmallestNonzeroFloat32, 0.000000001, 0.00001)
 }
 
-func testAlmostEqual(t *testing.T, want bool, a, b, ε float64) {
-	if AlmostEqual(a, b, ε) != want {
-		t.Errorf("expected `AlmostEqual(%f, %f, %f)` to return %t", a, b, ε, want)
+func testAlmostEqual(t *testing.T, want bool, a, b, ε float32) {
+	if AlmostEqual32(a, b, ε) != want {
+		t.Errorf("expected `AlmostEqual32(%v, %v, %v)` to return %t", a, b, ε, want)
 	}
 }

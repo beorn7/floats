@@ -1,7 +1,6 @@
 package floats
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -17,7 +16,6 @@ var (
 // applied method.
 func AlmostEqual(a, b, ε float64) bool {
 	if a == b {
-		fmt.Println("feep", a, b)
 		return true
 	}
 	absA := math.Abs(a)
