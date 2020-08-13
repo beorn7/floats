@@ -9,7 +9,7 @@ var (
 	// MinNormal is the smallest positive normal value of type float64.
 	MinNormal = math.Float64frombits(0x0010000000000000)
 	// MinNormal32 is the smallest positive normal value of type float32.
-	MinNormal32 = math.Float32frombits(0x008000000)
+	MinNormal32 = math.Float32frombits(0x00800000)
 )
 
 // AlmostEqual returns true if a and b are equal within a relative error of
