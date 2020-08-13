@@ -1,6 +1,9 @@
 package floats
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 var (
 	// MinNormal is the smallest positive normal value of type float64.
@@ -14,6 +17,7 @@ var (
 // applied method.
 func AlmostEqual(a, b, ε float64) bool {
 	if a == b {
+		fmt.Println("feep", a, b)
 		return true
 	}
 	absA := math.Abs(a)
